@@ -7,4 +7,7 @@ php:
 env:
     - APP_ENV=test
 
+install:
+    - composer install
+
 script: bin/phpunit --coverage-text
