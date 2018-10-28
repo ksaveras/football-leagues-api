@@ -10,8 +10,18 @@ cache:
 
 env:
     - APP_ENV=test
+    - CC_TEST_REPORTER_ID=87dee0a113a13b13143523894c911cfe7984d8b40c199bde638d212918da3f87
+
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 
 install:
     - composer install
 
-script: bin/phpunit --coverage-text
+script:
+    - bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
+
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
