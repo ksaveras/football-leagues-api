@@ -1,0 +1,77 @@
+leagues_list:
+    path: /leagues
+    controller: App\Controller\LeagueController::index
+    condition: "request.getContentType() == 'json'"
+    defaults:
+        _format: json
+    methods: [GET]
+
+leagues_create:
+    path: /leagues
+    controller: App\Controller\LeagueController::create
+    condition: "request.getContentType() == 'json'"
+    defaults:
+        _format: json
+    methods: [POST]
+
+leagues_show:
+    path: /leagues/{id}
+    controller: App\Controller\LeagueController::show
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [GET]
+
+leagues_update:
+    path: /leagues/{id}
+    controller: App\Controller\LeagueController::update
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [PUT]
+
+leagues_delete:
+    path: /leagues/{id}
+    controller: App\Controller\LeagueController::delete
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [DELETE]
+
+leagues_list_teams:
+    path: /leagues/{id}/teams
+    controller: App\Controller\LeagueController::listTeams
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [GET]
+
+leagues_add_teams:
+    path: /leagues/{id}/teams/{teamId}
+    controller: App\Controller\LeagueController::addTeam
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+        teamId: \d+
+    defaults:
+        _format: json
+    methods: [POST]
+
+leagues_remove_teams:
+    path: /leagues/{id}/teams/{teamId}
+    controller: App\Controller\LeagueController::removeTeam
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+        teamId: \d+
+    defaults:
+        _format: json
+    methods: [DELETE]

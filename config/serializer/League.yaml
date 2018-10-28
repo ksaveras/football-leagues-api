@@ -1,0 +1,8 @@
+App\Entity\League:
+    attributes:
+        id:
+            groups: ['league_list', 'league_show', 'team_list', 'team_show']
+        name:
+            groups: ['league_list', 'league_show', 'league_edit']
+        teams:
+            groups: ['league_list', 'league_show']

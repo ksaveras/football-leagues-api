@@ -1,0 +1,9 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    demo: { password: 'demo-pass', roles: ['ROLE_API_USER'] }

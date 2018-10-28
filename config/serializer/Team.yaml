@@ -1,0 +1,10 @@
+App\Entity\Team:
+    attributes:
+        id:
+            groups: ['team_list', 'team_show', 'league_list', 'league_show', 'league_teams']
+        name:
+            groups: ['team_list', 'team_show', 'team_edit', 'league_teams']
+        strip:
+            groups: ['team_list', 'team_show', 'team_edit', 'league_teams']
+        leagues:
+            groups: ['team_list', 'team_show']

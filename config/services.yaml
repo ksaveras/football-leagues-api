@@ -1,0 +1,25 @@
+parameters:
+    locale: 'en'
+    jwt_secret_key: '%env(JWT_SECRET_KEY)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Exception,Migrations,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    JwtManagerTokenSigner:
+        class: Lcobucci\JWT\Signer\Hmac\Sha256
+
+    App\Security\TokenManager:
+        arguments: ['@JwtManagerTokenSigner', '%jwt_secret_key%']

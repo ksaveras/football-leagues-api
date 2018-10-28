@@ -1,0 +1,43 @@
+version: "3.1"
+
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: ftapi-mysql
+        working_dir: /application
+        volumes:
+            - ftapi-data:/var/lib/mysql
+            - .:/application
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=ftapi
+            - MYSQL_USER=ftapi_user
+            - MYSQL_PASSWORD=ftapi_pass
+        ports:
+            - "3306:3306"
+
+    webserver:
+        image: nginx:alpine
+        container_name: ftapi-webserver
+        working_dir: /application
+        volumes:
+            - .:/application
+            - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "80:80"
+
+    php-fpm:
+        build: phpdocker/php-fpm
+        container_name: ftapi-php-fpm
+        working_dir: /application
+        user: 1000:1000
+        volumes:
+            - .:/application
+            - ./phpdocker/php-fpm/zz-overrides.conf:/etc/php/7.2/fpm/pool.d/zz-overrides.conf
+            - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+            - ./phpdocker/php-fpm/cli-php-ini-overrides.ini:/etc/php/7.2/cli/conf.d/99-overrides.ini
+        links:
+            - mysql
+
+volumes:
+    ftapi-data:

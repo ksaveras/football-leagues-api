@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+api_login_check:
+    path: /api/login_check
+    methods: [POST]
+
+api_leagues:
+    resource: 'routes/api/leagues.yaml'
+    prefix: /api
+
+api_teams:
+    resource: 'routes/api/teams.yaml'
+    prefix: /api

@@ -1,0 +1,45 @@
+teams_list:
+    path: /teams
+    controller: App\Controller\TeamController::index
+    condition: "request.getContentType() == 'json'"
+    defaults:
+        _format: json
+    methods: [GET]
+
+teams_create:
+    path: /teams
+    controller: App\Controller\TeamController::create
+    condition: "request.getContentType() == 'json'"
+    defaults:
+        _format: json
+    methods: [POST]
+
+teams_show:
+    path: /teams/{id}
+    controller: App\Controller\TeamController::show
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [GET]
+
+teams_update:
+    path: /teams/{id}
+    controller: App\Controller\TeamController::update
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [PUT]
+
+teams_delete:
+    path: /teams/{id}
+    controller: App\Controller\TeamController::delete
+    condition: "request.getContentType() == 'json'"
+    requirements:
+        id: \d+
+    defaults:
+        _format: json
+    methods: [DELETE]
