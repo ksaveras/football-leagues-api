@@ -21,17 +21,13 @@ class DummyFixtures extends Fixture
     {
         $teams = [];
         foreach (range(1, 20) as $index) {
-            $team = (new Team())
-                ->setName('Team ' . $index)
-                ->setStrip('strip ' . random_int(1, 100));
-
+            $team = (new Team())->setName('Team ' . $index)->setStrip('strip ' . random_int(1, 100));
             $teams[] = $team;
             $manager->persist($team);
         }
 
         foreach (range(1, 10) as $index) {
-            $league = (new League())
-                ->setName('League ' . $index);
+            $league = (new League())->setName('League ' . $index);
 
             $teamIds = array_values(
                 array_unique(
@@ -47,10 +43,8 @@ class DummyFixtures extends Fixture
             foreach ($teamIds as $teamId) {
                 $league->addTeam($teams[$teamId]);
             }
-
             $manager->persist($league);
         }
-
         $manager->flush();
     }
 }
