@@ -4,6 +4,9 @@ Symfony 4.1 API application example with JWT tokens.
 
 ## Setup
 
+Docker container php-fpm runs under defined user same as local user id.
+Check and update docker-compose.yml user id section. Use same id as your system user.
+
 Build and start Docker containers
 ```
 docker-compose up
