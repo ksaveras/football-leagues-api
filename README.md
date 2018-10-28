@@ -1,5 +1,7 @@
 # Football League API example
 [![Build Status](https://travis-ci.org/ksaveras/football-leagues-api.svg?branch=master)](https://travis-ci.org/ksaveras/football-leagues-api)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2ef3c88ba20ddfb682d3/maintainability)](https://codeclimate.com/github/ksaveras/football-leagues-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2ef3c88ba20ddfb682d3/test_coverage)](https://codeclimate.com/github/ksaveras/football-leagues-api/test_coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Symfony 4.1 API application example with JWT tokens.
