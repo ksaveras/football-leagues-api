@@ -55,12 +55,10 @@ class TeamController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $data = $request->getContent();
-
         try {
             /** @var Team $team */
             $team = $this->serializer->deserialize(
-                $data,
+                $request->getContent(),
                 Team::class,
                 $request->getContentType(),
                 [
@@ -104,11 +102,9 @@ class TeamController extends AbstractController
      */
     public function update(Request $request, Team $team): Response
     {
-        $data = $request->getContent();
-
         try {
             $this->serializer->deserialize(
-                $data,
+                $request->getContent(),
                 Team::class,
                 $request->getContentType(),
                 [

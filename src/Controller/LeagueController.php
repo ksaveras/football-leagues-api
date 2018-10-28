@@ -55,12 +55,10 @@ class LeagueController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $data = $request->getContent();
-
         try {
             /** @var League $league */
             $league = $this->serializer->deserialize(
-                $data,
+                $request->getContent(),
                 League::class,
                 $request->getContentType(),
                 [
@@ -103,11 +101,9 @@ class LeagueController extends AbstractController
      */
     public function update(Request $request, League $league): Response
     {
-        $data = $request->getContent();
-
         try {
             $this->serializer->deserialize(
-                $data,
+                $request->getContent(),
                 League::class,
                 $request->getContentType(),
                 [
