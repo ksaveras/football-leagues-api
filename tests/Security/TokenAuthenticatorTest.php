@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -45,6 +46,21 @@ class TokenAuthenticatorTest extends TestCase
         $credentials = $authenticator->getCredentials($request);
 
         $this->assertEquals($token, $credentials);
+    }
+
+    /**
+     * @dataProvider             invalidCredentialsProvider
+     * @expectedException \App\Exception\InvalidTokenException
+     * @expectedExceptionMessage Invalid JWT token
+     *
+     * @param Request $request
+     */
+    public function testGetInvalidCredentials(Request $request): void
+    {
+        $manager = $this->getTokenManager();
+
+        $authenticator = new TokenAuthenticator($manager);
+        $authenticator->getCredentials($request);
     }
 
     public function testCheckCredentials(): void
@@ -120,6 +136,25 @@ class TokenAuthenticatorTest extends TestCase
         $this->assertSame($userMock, $user);
     }
 
+    public function testGetUnknownUser(): void
+    {
+        $userProvider = $this->createMock(UserProviderInterface::class);
+        $userProvider->expects($this->once())
+            ->method('loadUserByUsername')
+            ->with('userId')
+            ->willThrowException(new UsernameNotFoundException());
+
+        $jwtToken = $this->createMock(Token::class);
+        $jwtToken->method('getClaim')
+            ->with('uid')
+            ->willReturn('userId');
+
+        $authenticator = new TokenAuthenticator($this->getTokenManager());
+        $user = $authenticator->getUser($jwtToken, $userProvider);
+
+        $this->assertNull($user);
+    }
+
     public function testStart(): void
     {
         $request = $this->createMock(Request::class);
@@ -173,6 +208,42 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => '',
+            ],
+            []
+        );
+
+        yield [$request];
+    }
+
+    /**
+     * @return \Generator
+     */
+    public function invalidCredentialsProvider(): ?\Generator
+    {
+        $request = Request::create(
+            '/',
+            'GET',
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_AUTHORIZATION' => 'Bearer',
+            ],
+            []
+        );
+
+        yield [$request];
+
+        $request = Request::create(
+            '/',
+            'GET',
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_AUTHORIZATION' => 'Bearer 123',
             ],
             []
         );

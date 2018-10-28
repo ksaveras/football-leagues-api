@@ -35,15 +35,26 @@ class TokenManagerTest extends TestCase
      * @expectedException \App\Exception\InvalidTokenException
      * @expectedExceptionMessage Invalid JWT token
      */
-    public function testValidateExceptions(): void
+    public function testValidateDataException(): void
     {
         $manager = $this->createTokenManager();
         $token = $manager->create('123');
 
         $manager->setIssuer('altered');
-        $result = $manager->validate($token);
+        $manager->validate($token);
+    }
 
-        $this->assertTrue($result);
+    /**
+     * @expectedException \App\Exception\InvalidTokenException
+     * @expectedExceptionMessage Invalid JWT token
+     */
+    public function testValidateSignatureException(): void
+    {
+        $manager = $this->createTokenManager();
+        $token = $manager->create('123');
+
+        $manager = $this->createTokenManager('superSecret');
+        $manager->validate($token);
     }
 
     public function testParse(): void
@@ -67,11 +78,13 @@ class TokenManagerTest extends TestCase
     }
 
     /**
+     * @param string $secret
+     *
      * @return TokenManager
      */
-    private function createTokenManager(): TokenManager
+    private function createTokenManager(string $secret = '123'): TokenManager
     {
-        $manager = new TokenManager(new Sha256(), '123');
+        $manager = new TokenManager(new Sha256(), $secret);
         $manager->setTtl(300);
 
         return $manager;
