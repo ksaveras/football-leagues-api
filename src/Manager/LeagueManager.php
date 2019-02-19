@@ -5,7 +5,6 @@ namespace App\Manager;
 use App\Entity\League;
 use App\Entity\Team;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -16,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class LeagueManager
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
 
@@ -59,7 +58,7 @@ class LeagueManager
         }
 
         $this->entityManager->persist($league);
-        $this->entityManager->flush($league);
+        $this->entityManager->flush();
     }
 
     /**
@@ -73,7 +72,7 @@ class LeagueManager
             throw new \InvalidArgumentException('League entity is invalid');
         }
 
-        $this->entityManager->flush($league);
+        $this->entityManager->flush();
     }
 
     /**
@@ -82,7 +81,7 @@ class LeagueManager
     public function delete(League $league): void
     {
         $this->entityManager->remove($league);
-        $this->entityManager->flush($league);
+        $this->entityManager->flush();
     }
 
     /**
@@ -92,8 +91,10 @@ class LeagueManager
     public function addTeam(League $league, int $teamId): void
     {
         try {
-            $league->addTeam($this->entityManager->getReference(Team::class, $teamId));
-            $this->entityManager->flush($league);
+            /** @var Team $teamRef */
+            $teamRef = $this->entityManager->getReference(Team::class, $teamId);
+            $league->addTeam($teamRef);
+            $this->entityManager->flush();
         } catch (UniqueConstraintViolationException $exception) {
             throw new \InvalidArgumentException('Team is already in that league');
         } catch (EntityNotFoundException $exception) {
@@ -110,8 +111,10 @@ class LeagueManager
     public function removeTeam(League $league, int $teamId): void
     {
         try {
-            $league->removeTeam($this->entityManager->getReference(Team::class, $teamId));
-            $this->entityManager->flush($league);
+            /** @var Team $teamRef */
+            $teamRef = $this->entityManager->getReference(Team::class, $teamId);
+            $league->removeTeam($teamRef);
+            $this->entityManager->flush();
         } catch (EntityNotFoundException $exception) {
             throw new \InvalidArgumentException('Team not found');
         } catch (\Exception $exception) {

@@ -3,7 +3,6 @@
 namespace App\Manager;
 
 use App\Entity\Team;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -13,7 +12,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class TeamManager
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
 
@@ -56,7 +55,7 @@ class TeamManager
         }
 
         $this->entityManager->persist($team);
-        $this->entityManager->flush($team);
+        $this->entityManager->flush();
     }
 
     /**
@@ -70,7 +69,7 @@ class TeamManager
             throw new \InvalidArgumentException('Team entity is invalid');
         }
 
-        $this->entityManager->flush($team);
+        $this->entityManager->flush();
     }
 
     /**
