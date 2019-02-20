@@ -27,4 +27,5 @@ jobs:
                       - ./vendor
 
             - run: bin/console cache:warmup
+            - run: bin/phpunit
             - run: ./vendor/bin/phpstan analyse src tests
