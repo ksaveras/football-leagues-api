@@ -26,5 +26,5 @@ jobs:
                   paths:
                       - ./vendor
 
-            - run: .bin/console cache:warmup
+            - run: bin/console cache:warmup
             - run: ./vendor/bin/phpstan analyse src tests
