@@ -45,6 +45,8 @@ class LeagueControllerTest extends AbstractApiTestCase
         $jwtToken = $this->getToken();
 
         $newLeague = ['name' => 'Super League'];
+        /** @var string $body */
+        $body = \json_encode($newLeague);
 
         $this->client->request(
             'POST',
@@ -55,7 +57,7 @@ class LeagueControllerTest extends AbstractApiTestCase
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer ' . $jwtToken,
             ],
-            \json_encode($newLeague)
+            $body
         );
 
         $response = $this->client->getResponse();
@@ -107,6 +109,8 @@ class LeagueControllerTest extends AbstractApiTestCase
         $jwtToken = $this->getToken();
 
         $updatedTeam = ['name' => 'Super League'];
+        /** @var string $body */
+        $body = \json_encode($updatedTeam);
 
         $this->client->request(
             'PUT',
@@ -117,7 +121,7 @@ class LeagueControllerTest extends AbstractApiTestCase
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer ' . $jwtToken,
             ],
-            \json_encode($updatedTeam)
+            $body
         );
 
         $response = $this->client->getResponse();
@@ -153,7 +157,6 @@ class LeagueControllerTest extends AbstractApiTestCase
         $this->assertEquals(204, $response->getStatusCode());
         $this->assertNull($response->headers->get('Content-Type'));
 
-        /** @var League $leagueEntity */
         $leagueEntity = static::$container->get('doctrine.orm.entity_manager')
             ->getRepository(League::class)
             ->find(1);
