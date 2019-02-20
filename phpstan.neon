@@ -1,7 +1,7 @@
 parameters:
     level: 6
     symfony:
-        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml
     autoload_files:
         - bin/.phpunit/phpunit-7.5.6/vendor/autoload.php
     ignoreErrors:
