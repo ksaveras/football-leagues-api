@@ -1,5 +1,11 @@
-includes:
-	- vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
-	symfony:
-		container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+    level: 5
+    symfony:
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+    autoload_files:
+        - bin/.phpunit/phpunit-7.5.6/vendor/autoload.php
+
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon

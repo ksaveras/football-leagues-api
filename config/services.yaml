@@ -1,6 +1,6 @@
 parameters:
-    locale: 'en'
     jwt_secret_key: '%env(JWT_SECRET_KEY)%'
+    locale: 'en'
 
 services:
     _defaults:

@@ -18,17 +18,20 @@
         "symfony/process": "*",
         "symfony/security-bundle": "*",
         "symfony/serializer-pack": "*",
+        "symfony/translation": "4.2.*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "phpstan/phpstan": "^0.10.5",
-        "phpstan/phpstan-symfony": "^0.10.1",
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-doctrine": "^0.11.1",
+        "phpstan/phpstan-phpunit": "^0.11.0",
+        "phpstan/phpstan-symfony": "^0.11",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",
-        "symfony/test-pack": "*"
+        "symfony/test-pack": "^1.0"
     },
     "config": {
         "preferred-install": {
@@ -72,7 +75,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.1.*"
+            "require": "4.2.*"
         }
     }
 }
