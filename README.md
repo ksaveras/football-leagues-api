@@ -5,7 +5,7 @@
 [![CircleCI](https://circleci.com/gh/ksaveras/football-leagues-api/tree/master.svg?style=svg)](https://circleci.com/gh/ksaveras/football-leagues-api/tree/master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Symfony 4.1 API application example with JWT tokens.
+Symfony 4.2 API application example with JWT tokens.
 
 ## Setup
 

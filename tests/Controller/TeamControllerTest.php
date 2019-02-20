@@ -46,6 +46,8 @@ class TeamControllerTest extends AbstractApiTestCase
         $jwtToken = $this->getToken();
 
         $newTeam = ['name' => 'Golden Team', 'strip' => 'yellow'];
+        /** @var string $body */
+        $body = \json_encode($newTeam);
 
         $this->client->request(
             'POST',
@@ -56,7 +58,7 @@ class TeamControllerTest extends AbstractApiTestCase
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer ' . $jwtToken,
             ],
-            \json_encode($newTeam)
+            $body
         );
 
         $response = $this->client->getResponse();
@@ -109,6 +111,8 @@ class TeamControllerTest extends AbstractApiTestCase
         $jwtToken = $this->getToken();
 
         $updatedTeam = ['name' => 'Golden Team', 'strip' => 'yellow'];
+        /** @var string $body */
+        $body = \json_encode($updatedTeam);
 
         $this->client->request(
             'PUT',
@@ -119,7 +123,7 @@ class TeamControllerTest extends AbstractApiTestCase
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer ' . $jwtToken,
             ],
-            \json_encode($updatedTeam)
+            $body
         );
 
         $response = $this->client->getResponse();
@@ -156,7 +160,6 @@ class TeamControllerTest extends AbstractApiTestCase
         $this->assertEquals(204, $response->getStatusCode());
         $this->assertNull($response->headers->get('Content-Type'));
 
-        /** @var Team $teamEntity */
         $teamEntity = static::$container->get('doctrine.orm.entity_manager')
             ->getRepository(Team::class)
             ->find(1);

@@ -6,7 +6,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: ksaveras/php-ci:7.1-alpine
+            - image: ksaveras/php-ci:7.2-alpine
 
         steps:
             - checkout
@@ -15,15 +15,17 @@ jobs:
             - restore_cache:
                   keys:
                       # "composer.lock" can be used if it is committed to the repo
-                      - v1-dependencies-{{ checksum "composer.json" }}
+                      - v1-dependencies-{{ checksum "composer.lock" }}
                       # fallback to using the latest cache if no exact match is found
                       - v1-dependencies-
 
             - run: composer install -n --prefer-dist
 
             - save_cache:
-                  key: v1-dependencies-{{ checksum "composer.json" }}
+                  key: v1-dependencies-{{ checksum "composer.lock" }}
                   paths:
                       - ./vendor
 
-            - run: ./vendor/bin/phpstan analyse src -c phpstan.neon -l 5
+            - run: bin/console cache:warmup
+            - run: bin/phpunit
+            - run: ./vendor/bin/phpstan analyse src tests

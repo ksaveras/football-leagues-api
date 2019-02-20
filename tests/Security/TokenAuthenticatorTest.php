@@ -30,8 +30,7 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer 123',
-            ],
-            []
+            ]
         );
 
         $token = $this->createMock(Token::class);
@@ -193,8 +192,7 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer 123',
-            ],
-            []
+            ]
         );
 
         yield [$request];
@@ -208,8 +206,7 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => '',
-            ],
-            []
+            ]
         );
 
         yield [$request];
@@ -229,8 +226,7 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer',
-            ],
-            []
+            ]
         );
 
         yield [$request];
@@ -244,8 +240,7 @@ class TokenAuthenticatorTest extends TestCase
             [
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_AUTHORIZATION' => 'Bearer 123',
-            ],
-            []
+            ]
         );
 
         yield [$request];

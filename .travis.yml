@@ -22,6 +22,7 @@ install:
 
 script:
     - bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
+    - vendor/bin/phpstan -c phpstan.neon
 
 after_script:
     - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
