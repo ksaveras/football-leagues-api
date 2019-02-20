@@ -6,7 +6,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: ksaveras/php-ci:7.1-alpine
+            - image: ksaveras/php-ci:7.2-alpine
 
         steps:
             - checkout
