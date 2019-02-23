@@ -20,7 +20,9 @@ install:
     - composer install
 
 script:
+    - bin/console cache:warmup -e test
     - bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
+    - bin/console cache:warmup -e dev
     - vendor/bin/phpstan analyse src tests
 
 after_script:
